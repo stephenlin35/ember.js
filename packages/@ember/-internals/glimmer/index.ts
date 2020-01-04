@@ -15,10 +15,10 @@
   });
   ```
 
-  ```app/templates/components/person-profile.hbs
-  {{name}}
-  <div>{{name}}</div>
-  <span data-name={{name}}></span>
+  ```app/components/person-profile.hbs
+  {{this.name}}
+  <div>{{this.name}}</div>
+  <span data-name={{this.name}}></span>
   ```
 
   Any time the "name" property on the component changes, the DOM will be
@@ -27,8 +27,8 @@
   Properties can be chained as well:
 
   ```handlebars
-  {{aUserModel.name}}
-  <div>{{listOfUsers.firstObject.name}}</div>
+  {{@aUserModel.name}}
+  <div>{{@listOfUsers.firstObject.name}}</div>
   ```
 
   ### Using Ember helpers
@@ -36,16 +36,16 @@
   When content is passed in mustaches `{{}}`, Ember will first try to find a helper
   or component with that name. For example, the `if` helper:
 
-  ```handlebars
-  {{if name "I have a name" "I have no name"}}
-  <span data-has-name={{if name true}}></span>
+  ```app/components/person-profile.hbs
+  {{if this.name "I have a name" "I have no name"}}
+  <span data-has-name={{if this.name true}}></span>
   ```
 
   The returned value is placed where the `{{}}` is called. The above style is
   called "inline". A second style of helper usage is called "block". For example:
 
   ```handlebars
-  {{#if name}}
+  {{#if this.name}}
   I have a name
   {{else}}
   I have no name
@@ -58,8 +58,8 @@
   helper will add " Doe" to a displayed name if the person has no last name:
 
   ```handlebars
-  <span data-name={{concat firstName (
-  if lastName (concat " " lastName) "Doe"
+  <span data-name={{concat this.firstName (
+  if this.lastName (concat " " lastName) "Doe"
   )}}></span>
   ```
 
@@ -155,7 +155,7 @@
   {{/labeled-textfield}}
   ```
 
-  ```app/templates/components/labeled-textfield.hbs
+  ```app/components/labeled-textfield.hbs
   <label>
     {{yield this.validationError}} <Input @value={{@value}} />
   </label>
